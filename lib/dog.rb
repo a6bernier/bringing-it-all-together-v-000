@@ -45,7 +45,17 @@ class Dog
   end
 
   def self.find_by_id
-
+    if self.id == nil
+      sql = <<-SQL
+        INSERT INTO dogs (name, breed)
+        Values (?, ?)
+      SQL
+      DB[:conn].execute(sql, self.name, self.breed)
+      @id = BD[:conn].execute("SELECT last_insert_rowid() FROM dogs")[0][0]
+    else
+      self.update
+    end
+    self
   end
 
 
