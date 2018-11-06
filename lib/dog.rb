@@ -44,22 +44,24 @@ class Dog
     new_dog.save
   end
 
-  def self.find_by_id(id) 
-    sql= <<-SQL 
+
+    def self.find_by_id(id)
+      sql= <<-SQL
       Select * from dogs where id = ?
-    SQL
-    data = DB[:conn].execute(sql, id).first 
-    hash_for_create = {:name => data[1],
-      :breed => data[2]}
-   new_dog = self.create(hash_for_create)
-   new_dog.id = data[0]
-   new_dog
-end 
+      SQL
+
+     data = DB[:conn].execute(sql, id).first
+     hash_for_create = {:name => data[1],
+     :breed => data[2]}
+     new_dog = self.create(hash_for_create)
+     new_dog.id = data[0]
+     new_dog
+    end 
 
   def update
    sql = "UPDATE dogs SET name = ?, breed = ? WHERE id = ?"
    DB[:conn].execute(sql, self.name, self.breed, self.id)
-  end 
+  end
 
 
 end
