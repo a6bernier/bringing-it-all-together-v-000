@@ -7,5 +7,9 @@ class Dog
     @breed = hash[:breed]
   end
 
+  def self.create_table
+
+  end
+
 
 end
